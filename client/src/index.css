@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================
+  GLOBAL TOKENS - PORTFOLIO SYSTEM
+  ========================================================= */
+:root {
+  --radius: 0.75rem;
+
+  --font-sans: 'Inter', 'Plus Jakarta Sans', sans-serif;
+  --font-serif: 'Inter', 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'Monaco', 'Menlo', monospace;
+
+  --opaque-button-border-intensity: -10;
+  --elevate-1: rgba(0,0,0,0.02);
+  --elevate-2: rgba(0,0,0,0.04);
+}
+
+/* =========================================================
+    LIGHT THEME TOKENS
+   ========================================================= */
+:root,
+[data-theme="light"] {
+
+    /* Backgrounds */
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --card-border: 214 32% 91%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --popover-border: 214 32% 91%;
+
+    /* Brand */
+    --primary: 239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 225 55% 95%;
+    --secondary-foreground: 215 25% 27%;
+
+    --accent: 225 55% 95%;
+    --accent-foreground: 215 25% 27%;
+
+    /* Muted */
+    --muted: 225 55% 95%;
+    --muted-foreground: 215 21% 65%;
+
+  /* States */
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 239 84% 67%;
+
+  /* Sidebar */
+  --sidebar: 210 40% 98%;
+  --sidebar-foreground: 222 47% 11%;
+  --sidebar-border: 214 32% 91%;
+  --sidebar-primary: 239 84% 67%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 225 55% 95%;
+  --sidebar-accent-foreground: 215 25% 27%;
+  --sidebar-ring: 239 84% 67%;
+
+  --chart-1: 239 84% 67%;
+  --chart-2: 214 80% 56%;
+  --chart-3: 186 72% 42%;
+  --chart-4: 35 92% 58%;
+  --chart-5: 273 76% 65%;
+}
+
+/* =========================================================
+   DARK THEME TOKENS
+   ========================================================= */
+html.dark,
+body.dark,
+html[data-theme="dark"],
+body[data-theme="dark"],
+[data-theme="dark"] {
+  --background: 222 92% 4%;
+  --foreground: 220 14% 90%;
+
+  --card: 221 39% 11%;
+  --card-foreground: 220 14% 90%;
+  --card-border: 217 33% 17%;
+
+  --popover: 221 39% 11%;
+  --popover-foreground: 220 14% 90%;
+  --popover-border: 217 33% 17%;
+
+  --primary: 188 83% 53%;
+  --primary-foreground: 222 92% 4%;
+
+  --secondary: 222 47% 11%;
+  --secondary-foreground: 220 9% 65%;
+
+  --accent: 222 47% 11%;
+  --accent-foreground: 220 9% 65%;
+
+  --muted: 222 47% 11%;
+  --muted-foreground: 220 9% 46%;
+
+  --destructive: 0 63% 52%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 217 33% 17%;
+  --input: 217 33% 17%;
+  --ring: 188 83% 53%;
+
+  --sidebar: 222 92% 4%;
+  --sidebar-foreground: 220 14% 90%;
+  --sidebar-border: 217 33% 17%;
+  --sidebar-primary: 188 83% 53%;
+  --sidebar-primary-foreground: 222 92% 4%;
+  --sidebar-accent: 222 47% 11%;
+  --sidebar-accent-foreground: 220 9% 65%;
+  --sidebar-ring: 188 83% 53%;
+
+  --chart-1: 188 83% 53%;
+  --chart-2: 214 80% 56%;
+  --chart-3: 160 84% 39%;
+  --chart-4: 35 92% 58%;
+  --chart-5: 273 76% 65%;
+}
+
+/* =========================================================
+   BASE STYLES - CLEAN MINIMAL
+   ========================================================= */
+@layer base {
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    background: hsl(var(--background));
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: hsl(var(--foreground));
+  }
+}
+
+/* =========================================================
+   UTILITIES & EFFECTS - MINIMAL PROFESSIONAL
+   ========================================================= */
+@layer utilities {
+
+  /* Minimal Card Panel */
+  .glass-panel {
+    background: hsl(var(--card));
+    backdrop-filter: blur(8px);
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 1px 3px hsl(210 11% 15% / 0.08);
+  }
+
+  /* Subtle text gradient - rarely used */
+  .text-gradient-minimal {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--foreground)),
+      hsl(var(--muted-foreground))
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Minimal hover */
+  .hover-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px hsl(210 11% 15% / 0.1);
+  }
+
+  /* Input */
+  input, textarea, select {
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--border));
+    color: hsl(var(--foreground));
+  }
+
+  input:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px hsl(var(--border) / 0.3);
+  }
+
+  /* Scrollbar - minimal */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+}
