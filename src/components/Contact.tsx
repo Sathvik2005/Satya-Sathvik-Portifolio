@@ -1,53 +1,44 @@
-import { ArrowUpRight, Github, Linkedin, Mail, FileText } from 'lucide-react';
-import ActionLink from './ActionLink';
-import Reveal from './Reveal';
-import SectionHead from './SectionHead';
+import Section from './Section';
 import { links } from '../lib/links';
 import { profile } from '../data/portfolio';
 
 const channels = [
-  { icon: Mail, label: "Email", value: profile.email, href: links.email },
-  { icon: Linkedin, label: "LinkedIn", value: "Kanithi Satya Sathvik", href: links.linkedin },
-  { icon: Github, label: "GitHub", value: "Sathvik2005", href: links.github },
-  { icon: FileText, label: "Resume", value: "Download PDF", href: links.resume },
+  { label: "Email", value: profile.email, href: links.email },
+  { label: "LinkedIn", value: "kanithi-satya-sathvik", href: links.linkedin },
+  { label: "GitHub", value: "Sathvik2005", href: links.github },
+  { label: "Resume", value: "Download PDF", href: links.resume },
+  { label: "Phone", value: profile.phoneDisplay, href: links.phone },
+  { label: "Location", value: profile.location },
 ];
 
 const Contact = () => (
-  <>
-    <SectionHead
-      index="06"
-      label="Contact"
-      title={<>Let’s talk about <span className="text-gradient">AI products and high-impact engineering.</span></>}
-      lead="Open to AI products, internships, and engineering work. Reach me by email, LinkedIn, or GitHub."
-    />
+  <Section id="contact" label="Contact">
+    <h3 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1]">Let’s build something useful.</h3>
+    <p className="mt-6 max-w-xl text-muted leading-relaxed">
+      Open to AI products, internships, and engineering work. Email is the fastest way to reach me.
+    </p>
 
-    <ul className="border-b border-white/10">
-      {channels.map(({ icon: Icon, label, value, href }, i) => (
-        <li key={label} className="border-t border-white/10">
-          <Reveal delay={0.04 * i}>
-            <ActionLink href={href} className="panel-link group grid grid-cols-12 items-center gap-x-6 py-6 transition-colors hover:bg-white/[0.03]">
-              <span className="col-span-8 md:col-span-4 flex items-center gap-3">
-                <span className="grid place-items-center h-10 w-10 rounded-xl bg-accent/15 text-accent-alt">
-                  <Icon size={18} />
-                </span>
-                <span className="text-xs uppercase tracking-widest text-white/50">{label}</span>
-              </span>
-              <span className="col-span-12 md:col-span-6 order-last md:order-none mt-3 md:mt-0 font-semibold tracking-tight text-lg break-words">
+    <dl className="mt-12 divide-y divide-line border-y border-line">
+      {channels.map(({ label, value, href }) => (
+        <div key={label} className="grid grid-cols-[6rem_1fr] md:grid-cols-9 gap-x-8 py-4">
+          <dt className="md:col-span-3 text-sm text-muted">{label}</dt>
+          <dd className="md:col-span-6 break-words">
+            {href ? (
+              <a
+                href={href}
+                {...(href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                className="link"
+              >
                 {value}
-              </span>
-              <span className="col-span-4 md:col-span-2 justify-self-end">
-                {href ? (
-                  <ArrowUpRight size={18} className="text-white/40 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" />
-                ) : (
-                  <span className="text-[10px] uppercase tracking-widest text-white/40">Link pending</span>
-                )}
-              </span>
-            </ActionLink>
-          </Reveal>
-        </li>
+              </a>
+            ) : (
+              value
+            )}
+          </dd>
+        </div>
       ))}
-    </ul>
-  </>
+    </dl>
+  </Section>
 );
 
 export default Contact;

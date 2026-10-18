@@ -1,25 +1,23 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, Moon, Sun, X } from 'lucide-react';
-import { dur, ease } from '../lib/motion';
 
 const links = [
   { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
   { id: 'experience', label: 'Experience' },
+  { id: 'skills', label: 'Skills' },
   { id: 'contact', label: 'Contact' },
 ];
 
 const iconButton =
-  'grid place-items-center h-10 w-10 rounded-xl border border-white/15 bg-white/5 text-white/70 hover:text-white hover:bg-white/10 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-alt';
+  'grid place-items-center h-10 w-10 rounded-md text-muted hover:text-ink transition-colors';
 
 const Navbar = () => {
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'));
-  const [active, setActive] = useState('about');
+  const [active, setActive] = useState('');
   const [open, setOpen] = useState(false);
 
-  // Following the system until the user picks a theme; after that their choice is stored.
+  // Follows the system until the visitor picks a theme; after that their choice is stored.
   const toggleTheme = () => {
     const next = !dark;
     setDark(next);
@@ -27,7 +25,7 @@ const Navbar = () => {
     try { localStorage.setItem('theme', next ? 'dark' : 'light'); } catch { /* storage unavailable */ }
   };
 
-  // Indicator follows the section crossing the upper third of the viewport.
+  // Highlight the section crossing the upper third of the viewport.
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
@@ -48,39 +46,21 @@ const Navbar = () => {
   }, [open]);
 
   return (
-    <motion.nav
-      initial={{ y: -64, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: dur.slow, ease }}
-      className="fixed top-0 inset-x-0 z-40 glass border-x-0 border-t-0"
-      aria-label="Primary"
-    >
-      <div className="container-x h-16 flex items-center justify-between">
-        <a href="#hero" className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-alt rounded-lg">
-          <span className="grid place-items-center h-9 w-9 rounded-xl bg-accent text-on-accent text-xs font-bold tracking-tight">
-            SK
-          </span>
-          <span className="text-sm font-semibold tracking-tight">Sathvik Kanithi</span>
-        </a>
+    <header className="fixed top-0 inset-x-0 z-40 bg-background border-b border-line">
+      <nav className="container-x h-14 flex items-center justify-between" aria-label="Primary">
+        <a href="#hero" className="text-sm font-semibold tracking-tight">Sathvik Kanithi</a>
 
-        <div className="flex items-center gap-2">
-          <ul className="hidden md:flex items-center gap-1 mr-3 text-sm font-medium">
+        <div className="flex items-center gap-1">
+          <ul className="hidden md:flex items-center gap-6 mr-4 text-sm">
             {links.map(({ id, label }) => (
               <li key={id}>
                 <a
                   href={`#${id}`}
                   aria-current={active === id ? 'true' : undefined}
-                  className={`relative block px-3 py-2 rounded-lg transition-colors focus-visible:outline-2 focus-visible:outline-accent-alt ${
-                    active === id ? 'text-white' : 'text-white/60 hover:text-white'
+                  className={`py-1 border-b transition-colors ${
+                    active === id ? 'text-ink border-accent' : 'text-muted border-transparent hover:text-ink'
                   }`}
                 >
-                  {active === id && (
-                    <motion.span
-                      layoutId="nav-active"
-                      transition={{ duration: dur.base, ease }}
-                      className="absolute inset-0 -z-10 rounded-lg bg-white/10"
-                    />
-                  )}
                   {label}
                 </a>
               </li>
@@ -105,38 +85,25 @@ const Navbar = () => {
             {open ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
-      </div>
+      </nav>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            id="mobile-menu"
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: dur.fast, ease }}
-            className="md:hidden border-t border-white/10"
-          >
-            <ul className="container-x py-3">
-              {links.map(({ id, label }) => (
-                <li key={id}>
-                  <a
-                    href={`#${id}`}
-                    onClick={() => setOpen(false)}
-                    aria-current={active === id ? 'true' : undefined}
-                    className={`flex items-center justify-between min-h-[48px] px-2 text-base font-medium ${
-                      active === id ? 'text-accent-alt' : 'text-white/80'
-                    }`}
-                  >
-                    {label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+      {open && (
+        <ul id="mobile-menu" className="md:hidden container-x border-t border-line py-2">
+          {links.map(({ id, label }) => (
+            <li key={id}>
+              <a
+                href={`#${id}`}
+                onClick={() => setOpen(false)}
+                aria-current={active === id ? 'true' : undefined}
+                className={`flex items-center min-h-[48px] text-base ${active === id ? 'text-accent' : 'text-ink'}`}
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </header>
   );
 };
 

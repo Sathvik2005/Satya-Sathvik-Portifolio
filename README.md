@@ -7,16 +7,17 @@ Personal portfolio of an AI engineer and SDE intern: projects, skills, experienc
 ## Stack
 
 - React 19 + TypeScript, built with Vite
-- Tailwind CSS with CSS-variable design tokens
-- Framer Motion for animation (reduced-motion aware)
+- Tailwind CSS with CSS-variable design tokens (colors, spacing, container)
+- Framer Motion for the few animations (reduced-motion aware)
 - Lucide icons
 
-## Features
+## Design
 
-- Warm coral and amber palette, with dark and light themes. It follows the system setting on first visit, then remembers your choice.
-- Shared layout system: one container, one 12-column grid, one spacing scale.
-- Glass navbar with a sliding active-section indicator and a mobile menu.
-- Scroll-progress bar and short, staggered reveal animations.
+- Minimal, editorial layout: every section is a label column plus a content column on a 12-column grid.
+- Neutral palette with a single steel-blue accent, in dark and light themes. It follows the system
+  setting on first visit, then remembers your choice.
+- No glass, gradients or glows. Motion is limited to a short hero entrance and fade-in section reveals,
+  and respects reduced-motion settings.
 
 ## Run locally
 

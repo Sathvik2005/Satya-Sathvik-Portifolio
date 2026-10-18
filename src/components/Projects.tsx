@@ -1,67 +1,69 @@
-import { Github } from 'lucide-react';
-import Reveal from './Reveal';
-import SectionHead from './SectionHead';
-import { projects } from '../data/portfolio';
+import { ArrowUpRight } from 'lucide-react';
+import Section from './Section';
+import { projects, type Project } from '../data/portfolio';
+
+// TwinMind Pro leads as the featured project; the rest keep their data order.
+const ordered: Project[] = [
+  ...projects.filter((p) => p.title === 'TwinMind Pro'),
+  ...projects.filter((p) => p.title !== 'TwinMind Pro'),
+];
 
 const Projects = () => (
-  <>
-    <SectionHead
-      index="03"
-      label="Projects"
-      title={<>Selected work, <span className="text-gradient">measured by outcomes.</span></>}
-      lead="What each project does, what it's built with, and the impact."
-    />
+  <Section id="projects" label="Selected projects">
+    <p className="max-w-2xl text-muted leading-relaxed mb-12">
+      Selected work, measured by outcomes. Each entry covers the problem, what I built, and the stack.
+    </p>
 
-    <ol className="border-b border-white/10">
-      {projects.map((p, i) => {
+    <ol className="divide-y divide-line border-y border-line">
+      {ordered.map((p, i) => {
         const [problem, built] = p.description;
+        const featured = i === 0;
         return (
-          <li key={p.title} className="border-t border-white/10">
-            <Reveal className="group grid md:grid-cols-12 gap-x-8 gap-y-4 py-9">
-              <div className="md:col-span-4">
-                <p className="text-sm font-semibold text-accent-alt">{String(i + 1).padStart(2, '0')}</p>
-                <h3 className="mt-2 text-xl md:text-2xl font-bold tracking-tight transition-colors group-hover:text-accent-alt">
+          <li key={p.title} className={featured ? 'py-12' : 'py-8'}>
+            <article className="grid md:grid-cols-9 gap-x-8 gap-y-4">
+              <header className="md:col-span-3">
+                <p className="text-sm text-muted tabular-nums">{String(i + 1).padStart(2, '0')}</p>
+                <h3 className={`mt-1 font-semibold tracking-tight ${featured ? 'text-2xl md:text-3xl' : 'text-xl'}`}>
                   {p.title}
                 </h3>
-                <p className="mt-2 text-sm text-white/55 leading-relaxed">{p.tagline}</p>
-              </div>
+              </header>
 
-              <div className="md:col-span-8">
-                <dl className="space-y-4 max-w-2xl">
-                  <div>
-                    <dt className="eyebrow !text-white/45 mb-1">Problem</dt>
-                    <dd className="text-white/70 leading-relaxed">{problem}</dd>
+              <div className="md:col-span-6">
+                <p className={featured ? 'text-lg leading-relaxed' : 'leading-relaxed'}>{p.tagline}</p>
+
+                <dl className="mt-5 space-y-3 text-sm leading-relaxed">
+                  <div className="grid grid-cols-[5.5rem_1fr] gap-x-4">
+                    <dt className="text-muted">Problem</dt>
+                    <dd>{problem}</dd>
                   </div>
-                  <div>
-                    <dt className="eyebrow !text-white/45 mb-1">What I built</dt>
-                    <dd className="text-white/85 leading-relaxed">{built}</dd>
+                  <div className="grid grid-cols-[5.5rem_1fr] gap-x-4">
+                    <dt className="text-muted">Built</dt>
+                    <dd>{built}</dd>
+                  </div>
+                  <div className="grid grid-cols-[5.5rem_1fr] gap-x-4">
+                    <dt className="text-muted">Stack</dt>
+                    <dd className="text-muted">{p.tech.join(' · ')}</dd>
                   </div>
                 </dl>
-
-                <ul className="flex flex-wrap gap-2 mt-5" aria-label={`${p.title} technologies`}>
-                  {p.tech.map((t) => (
-                    <li key={t} className="chip">{t}</li>
-                  ))}
-                </ul>
 
                 {p.links.github && (
                   <a
                     href={p.links.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white/70 hover:text-accent-alt transition-colors"
+                    className="link mt-5 inline-flex items-center gap-1 text-sm"
                   >
-                    <Github size={16} /> View GitHub
+                    GitHub <ArrowUpRight size={14} />
                     <span className="sr-only"> repository for {p.title}</span>
                   </a>
                 )}
               </div>
-            </Reveal>
+            </article>
           </li>
         );
       })}
     </ol>
-  </>
+  </Section>
 );
 
 export default Projects;

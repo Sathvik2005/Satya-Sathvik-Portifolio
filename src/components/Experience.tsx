@@ -1,11 +1,7 @@
-import Reveal from './Reveal';
-import SectionHead from './SectionHead';
-import { achievements, currentFocus, timeline } from '../data/portfolio';
+import Section from './Section';
+import { currentFocus, timeline } from '../data/portfolio';
 
-const kindOf = (org: string, title: string) =>
-  org.includes('Logikality') ? 'Industry' : title.includes('Club') ? 'Leadership' : 'Education';
-
-// Long single-sentence details separated by ";" read better as bullets.
+// Long single-sentence details separated by ";" read better as a list.
 const toPoints = (detail: string) =>
   detail.includes(';')
     ? detail
@@ -16,67 +12,36 @@ const toPoints = (detail: string) =>
     : [];
 
 const Experience = () => (
-  <>
-    <SectionHead
-      index="04"
-      label="Experience & Education"
-      title={<>Experience, education, <span className="text-gradient">and leadership.</span></>}
-    />
+  <Section id="experience" label="Experience">
+    <ol className="divide-y divide-line border-y border-line">
+      {timeline.map((e) => {
+        const points = toPoints(e.detail);
+        return (
+          <li key={e.title + e.org} className="grid md:grid-cols-9 gap-x-8 gap-y-2 py-8">
+            <p className="md:col-span-3 text-sm text-muted tabular-nums">{e.period.replace(' - ', ' – ')}</p>
+            <div className="md:col-span-6">
+              <h3 className="font-semibold tracking-tight">{e.title}</h3>
+              <p className="text-sm text-muted">{e.org}</p>
+              {points.length > 0 ? (
+                <ul className="mt-4 space-y-2 list-disc pl-5 marker:text-muted leading-relaxed">
+                  {points.map((p) => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-3 leading-relaxed">{e.detail}</p>
+              )}
+            </div>
+          </li>
+        );
+      })}
+    </ol>
 
-    <Reveal>
-      <ol className="panel !p-0 divide-y divide-white/10 overflow-hidden">
-        {timeline.map((e) => {
-          const points = toPoints(e.detail);
-          return (
-            <li
-              key={e.title + e.org}
-              className="grid md:grid-cols-12 gap-x-8 gap-y-3 p-6 md:p-8 transition-colors hover:bg-white/[0.03]"
-            >
-              <div className="md:col-span-3">
-                <p className="text-sm font-semibold">{e.period.replace(' - ', ' — ')}</p>
-                <p className="eyebrow mt-1 !text-white/40">{kindOf(e.org, e.title)}</p>
-              </div>
-
-              <div className="md:col-span-9">
-                <h3 className="text-xl font-bold tracking-tight">{e.title}</h3>
-                <p className="text-sm text-white/50 mt-1">{e.org}</p>
-                {points.length > 0 ? (
-                  <ul className="mt-4 space-y-2 max-w-2xl">
-                    {points.map((p) => (
-                      <li key={p} className="flex gap-3 text-white/70 leading-relaxed">
-                        <span className="mt-[0.7em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="mt-3 text-white/70 leading-relaxed max-w-2xl">{e.detail}</p>
-                )}
-              </div>
-            </li>
-          );
-        })}
-      </ol>
-    </Reveal>
-
-    <div className="grid md:grid-cols-12 gap-x-8 gap-y-10 mt-14">
-      <Reveal className="md:col-span-7">
-        <h3 className="eyebrow mb-4">Achievements</h3>
-        <ul className="space-y-3">
-          {achievements.map((a) => (
-            <li key={a} className="flex gap-3 text-white/70 leading-relaxed">
-              <span className="mt-[0.7em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-              {a}
-            </li>
-          ))}
-        </ul>
-      </Reveal>
-      <Reveal delay={0.08} className="md:col-span-5">
-        <h3 className="eyebrow mb-4">Current focus</h3>
-        <p className="text-white/70 leading-relaxed">{currentFocus}</p>
-      </Reveal>
-    </div>
-  </>
+    <p className="mt-8 max-w-2xl text-sm text-muted leading-relaxed">
+      <span className="text-ink font-medium">Current focus. </span>
+      {currentFocus}
+    </p>
+  </Section>
 );
 
 export default Experience;
