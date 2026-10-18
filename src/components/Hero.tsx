@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, BarChart3, Briefcase, Database, FileText, GraduationCap, Github, Target, Zap } from 'lucide-react';
 import CatMark from './CatMark';
+import { PawTrail, ValueStickers } from './HeroDecor';
 import { dur, ease } from '../lib/motion';
 import { links } from '../lib/links';
 import { profile } from '../data/portfolio';
@@ -61,6 +62,7 @@ const Hero = () => {
   return (
     <section id="hero" className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
       <div className="hero-grid absolute inset-0 -z-10" aria-hidden="true" />
+      <PawTrail />
 
       <div className="container-x grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
         <div className="lg:col-span-7">
@@ -69,14 +71,18 @@ const Hero = () => {
             AI engineer · SDE intern at Logikality
           </motion.p>
 
-          <h1 className="font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold tracking-tight leading-[1.05]">
-            <MaskLine delay={0.1}>I build AI systems</MaskLine>
+          <h1 className="font-display text-[clamp(2.25rem,4vw,3.75rem)] font-bold tracking-tight leading-[1.05]">
+            <MaskLine delay={0.1}>Building AI,</MaskLine>
             <MaskLine delay={0.22}>
-              <span className="text-gradient">beyond the demo.</span>
+              <span className="text-gradient">learning by shipping.</span>
             </MaskLine>
           </h1>
 
-          <motion.p {...rise(0.45)} className="mt-6 max-w-xl text-lg text-muted leading-relaxed">
+          <motion.p {...rise(0.4)} className="mt-5 font-display text-xl font-medium text-accent">
+            Prototype to production.
+          </motion.p>
+
+          <motion.p {...rise(0.5)} className="mt-4 max-w-xl text-lg text-muted leading-relaxed">
             I’m Sathvik. I build LLM and RAG systems, voice and text-to-SQL products, and the tests and
             evaluation that keep them reliable.
           </motion.p>
@@ -109,7 +115,8 @@ const Hero = () => {
         </div>
 
         {/* Terminal panel: stays dark navy in both themes, like a code window */}
-        <motion.div {...rise(0.3)} className="lg:col-span-5">
+        <motion.div {...rise(0.3)} className="relative lg:col-span-5">
+          <ValueStickers />
           <div className="rounded-2xl border border-[#273753] bg-[#0A1224] shadow-xl shadow-primary/10 overflow-hidden">
             <div className="flex items-center justify-between border-b border-[#273753] px-4 py-2.5">
               <div className="flex items-center gap-2" aria-hidden="true">
