@@ -8,16 +8,17 @@ Personal portfolio of an AI engineer and SDE intern: projects, skills, experienc
 
 - React 19 + TypeScript, built with Vite
 - Tailwind CSS with CSS-variable design tokens (colors, spacing, container)
-- Framer Motion for the few animations (reduced-motion aware)
+- Framer Motion for animation (reduced-motion aware)
 - Lucide icons
 
 ## Design
 
-- Minimal, editorial layout: every section is a label column plus a content column on a 12-column grid.
-- Neutral palette with a single steel-blue accent, in dark and light themes. It follows the system
-  setting on first visit, then remembers your choice.
-- No glass, gradients or glows. Motion is limited to a short hero entrance and fade-in section reveals,
-  and respects reduced-motion settings.
+- Navy digital-studio look: layered navy surfaces, cobalt primary, cyan as a supporting accent. A separately
+  designed light theme follows the system setting on first visit, then remembers your choice.
+- Space Grotesk for headings, Inter for body text, and one set of tokens for spacing, surfaces and motion.
+- Bento layouts for the hero, skills and featured projects; a timeline for experience.
+- Lucide icons throughout, staggered reveals, hover and arrow interactions, a scroll-progress bar and a few
+  small details (a terminal panel and a cat). Reduced-motion settings are respected.
 
 ## Run locally
 

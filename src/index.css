@@ -3,39 +3,55 @@
 @tailwind utilities;
 
 /* ---------- Design tokens ---------- */
+/* Light theme (default tokens). Colors are space-separated RGB so Tailwind opacity modifiers work. */
 :root {
   color-scheme: light;
 
-  /* color (space-separated RGB so Tailwind opacity modifiers work) */
-  --bg: 247 247 244;      /* #F7F7F4 */
-  --ink: 32 33 36;        /* #202124 */
-  --muted: 101 105 112;   /* #656970 */
-  --line: 224 225 222;    /* #E0E1DE */
-  --accent: 71 106 148;   /* #476A94 */
+  --bg: 244 247 252;       /* #F4F7FC */
+  --band: 232 238 249;     /* #E8EEF9 */
+  --surface: 255 255 255;  /* #FFFFFF */
+  --raised: 227 235 248;   /* #E3EBF8 */
+  --primary: 36 87 230;    /* #2457E6 */
+  --accent: 40 100 220;    /* #2864DC */
+  --cyan: 8 125 156;       /* #087D9C */
+  --ink: 11 21 48;         /* #0B1530 */
+  --muted: 74 90 120;      /* #4A5A78 */
+  --line: 208 219 238;     /* #D0DBEE */
 
   /* layout */
-  --container: 70rem;
-  --gutter: 1.5rem;
-  --section-y: 5rem;
-  --gap-x: 2rem;
+  --container: 72rem;
+  --gutter: 1.25rem;
+  --section-y: 4.5rem;
+  --gap: 1rem;
+  --tile-pad: 1.25rem;
+  --radius-tile: 1rem;
 
   /* motion */
-  --dur: 200ms;
+  --dur: 220ms;
 }
 
+/* Dark navy theme (primary experience) */
 :root.dark {
   color-scheme: dark;
-  --bg: 17 19 24;         /* #111318 */
-  --ink: 242 241 237;     /* #F2F1ED */
-  --muted: 164 166 173;   /* #A4A6AD */
-  --line: 48 51 59;       /* #30333B */
-  --accent: 120 147 181;  /* #7893B5 */
+
+  --bg: 8 14 28;           /* #080E1C */
+  --band: 13 22 41;        /* #0D1629 */
+  --surface: 18 31 56;     /* #121F38 */
+  --raised: 25 43 73;      /* #192B49 */
+  --primary: 53 109 255;   /* #356DFF */
+  --accent: 87 149 255;    /* #5795FF */
+  --cyan: 89 216 245;      /* #59D8F5 */
+  --ink: 243 246 252;      /* #F3F6FC */
+  --muted: 165 179 202;    /* #A5B3CA */
+  --line: 39 55 83;        /* #273753 */
 }
 
 @media (min-width: 768px) {
   :root {
     --gutter: 2rem;
     --section-y: 7rem;
+    --gap: 1.25rem;
+    --tile-pad: 1.5rem;
   }
 }
 
@@ -55,13 +71,13 @@ body {
 }
 
 ::selection {
-  background: rgb(var(--accent) / 0.25);
+  background: rgb(var(--primary) / 0.35);
 }
 
 :focus-visible {
   outline: 2px solid rgb(var(--accent));
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 6px;
 }
 
 /* ---------- Layout primitives ---------- */
@@ -75,44 +91,104 @@ body {
 
   .section {
     padding-block: var(--section-y);
-    border-top: 1px solid rgb(var(--line));
   }
 
-  /* 12-column row: label/meta in 3 columns, content in 9 */
-  .row-grid {
+  /* 1 col mobile / 6 cols tablet / 12 cols desktop; items choose spans */
+  .bento {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    column-gap: var(--gap-x);
-    row-gap: 0.75rem;
+    gap: var(--gap);
   }
   @media (min-width: 768px) {
-    .row-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-    .row-grid > .col-label { grid-column: span 3 / span 3; }
-    .row-grid > .col-body { grid-column: span 9 / span 9; }
+    .bento { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1024px) {
+    .bento { grid-template-columns: repeat(12, minmax(0, 1fr)); }
   }
 
-  /* Inline text link */
-  .link {
-    @apply text-ink underline underline-offset-4 decoration-line;
-    transition: color var(--dur) ease, text-decoration-color var(--dur) ease;
+  /* Surfaces */
+  .tile {
+    position: relative;
+    background-color: rgb(var(--surface));
+    border: 1px solid rgb(var(--line));
+    border-radius: var(--radius-tile);
+    padding: var(--tile-pad);
+    transition: border-color var(--dur) ease, transform var(--dur) ease, background-color var(--dur) ease;
   }
-  .link:hover {
-    @apply text-accent decoration-accent;
+  .tile-hover:hover {
+    border-color: rgb(var(--accent) / 0.6);
+    transform: translateY(-3px);
+  }
+  :root:not(.dark) .tile {
+    box-shadow: 0 1px 2px rgb(11 21 48 / 0.05), 0 6px 18px rgb(11 21 48 / 0.04);
+  }
+
+  .icon-tile {
+    @apply grid place-items-center shrink-0 h-10 w-10 rounded-xl bg-primary/15 text-accent;
+    transition: background-color var(--dur) ease, color var(--dur) ease;
+  }
+  .group:hover .icon-tile {
+    @apply bg-primary text-white;
+  }
+
+  /* Small text labels */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-sm font-medium text-accent;
+  }
+  .label {
+    @apply inline-flex items-center gap-1.5 rounded-md border border-line bg-raised/60 px-2 py-1 text-xs font-medium text-muted;
+    transition: color var(--dur) ease, border-color var(--dur) ease;
   }
 
   /* Buttons */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 px-5 text-sm font-medium;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 text-sm font-semibold;
     min-height: 44px;
-    border-radius: 6px;
-    transition: opacity var(--dur) ease, background-color var(--dur) ease, border-color var(--dur) ease, transform var(--dur) ease;
+    transition: background-color var(--dur) ease, border-color var(--dur) ease, color var(--dur) ease, transform var(--dur) ease;
   }
+  .btn:hover { transform: translateY(-1px); }
   .btn:active { transform: translateY(1px); }
-  .btn-solid {
-    @apply bg-ink text-background;
+  .btn-primary {
+    @apply bg-primary text-white;
   }
-  .btn-solid:hover { opacity: 0.88; }
+  .btn-primary:hover { @apply bg-accent; }
+  .btn-ghost {
+    @apply border border-line bg-surface text-ink;
+  }
+  .btn-ghost:hover { @apply border-accent bg-raised; }
+
+  .link {
+    @apply inline-flex items-center gap-1 text-accent;
+    transition: color var(--dur) ease;
+  }
+  .link:hover { @apply text-cyan; }
 }
+
+.text-gradient {
+  background: linear-gradient(90deg, rgb(var(--accent)), rgb(var(--cyan)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Quiet dot grid behind the hero, fading out downward */
+.hero-grid {
+  background-image: radial-gradient(rgb(var(--line)) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 90%);
+  mask-image: linear-gradient(to bottom, black 20%, transparent 90%);
+}
+
+/* Cat motif: ears twitch on hover */
+.cat .ear-l,
+.cat .ear-r {
+  transform-box: fill-box;
+  transition: transform 180ms ease;
+}
+.cat .ear-l { transform-origin: 80% 100%; }
+.cat .ear-r { transform-origin: 20% 100%; }
+.cat:hover .ear-l { transform: rotate(-14deg); }
+.cat:hover .ear-r { transform: rotate(10deg); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

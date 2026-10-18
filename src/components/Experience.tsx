@@ -1,5 +1,13 @@
-import Section from './Section';
-import { currentFocus, timeline } from '../data/portfolio';
+import { useRef } from 'react';
+import type { LucideIcon } from 'lucide-react';
+import { motion, useScroll, useSpring } from 'framer-motion';
+import { Briefcase, Check, GraduationCap, School, Users } from 'lucide-react';
+import { Stagger, StaggerItem } from './Reveal';
+import { Section, SectionHeader } from './Section';
+import { timeline } from '../data/portfolio';
+
+const iconFor = (title: string, org: string): LucideIcon =>
+  org.includes('Logikality') ? Briefcase : title.includes('Club') ? Users : title.includes('B.Tech') ? GraduationCap : School;
 
 // Long single-sentence details separated by ";" read better as a list.
 const toPoints = (detail: string) =>
@@ -11,37 +19,65 @@ const toPoints = (detail: string) =>
         .map((p) => p.charAt(0).toUpperCase() + p.slice(1) + '.')
     : [];
 
-const Experience = () => (
-  <Section id="experience" label="Experience">
-    <ol className="divide-y divide-line border-y border-line">
-      {timeline.map((e) => {
-        const points = toPoints(e.detail);
-        return (
-          <li key={e.title + e.org} className="grid md:grid-cols-9 gap-x-8 gap-y-2 py-8">
-            <p className="md:col-span-3 text-sm text-muted tabular-nums">{e.period.replace(' - ', ' – ')}</p>
-            <div className="md:col-span-6">
-              <h3 className="font-semibold tracking-tight">{e.title}</h3>
-              <p className="text-sm text-muted">{e.org}</p>
-              {points.length > 0 ? (
-                <ul className="mt-4 space-y-2 list-disc pl-5 marker:text-muted leading-relaxed">
-                  {points.map((p) => (
-                    <li key={p}>{p}</li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="mt-3 leading-relaxed">{e.detail}</p>
-              )}
-            </div>
-          </li>
-        );
-      })}
-    </ol>
+const Experience = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 75%', 'end 60%'] });
+  const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
-    <p className="mt-8 max-w-2xl text-sm text-muted leading-relaxed">
-      <span className="text-ink font-medium">Current focus. </span>
-      {currentFocus}
-    </p>
-  </Section>
-);
+  return (
+    <Section id="experience" band>
+      <SectionHeader
+        icon={Briefcase}
+        label="Experience & education"
+        title={<>Experience, education, <span className="text-gradient">and leadership.</span></>}
+      />
+
+      <div ref={ref} className="relative max-w-3xl">
+        <span aria-hidden="true" className="absolute left-4 top-2 bottom-2 w-px bg-line" />
+        <motion.span
+          aria-hidden="true"
+          style={{ scaleY }}
+          className="absolute left-4 top-2 bottom-2 w-px origin-top bg-accent"
+        />
+
+        <Stagger tag="ol" className="relative">
+          {timeline.map((e) => {
+            const Icon = iconFor(e.title, e.org);
+            const points = toPoints(e.detail);
+            const current = /present/i.test(e.period);
+            return (
+              <StaggerItem key={e.title + e.org} tag="li" className="relative pl-14 pb-10 last:pb-0">
+                <span className="absolute left-0 top-0 grid h-8 w-8 place-items-center rounded-full border border-line bg-surface text-accent">
+                  <Icon size={16} aria-hidden="true" />
+                </span>
+
+                <div className={current ? 'tile' : ''}>
+                  <p className="flex items-center gap-3 text-sm text-muted">
+                    <span className="tabular-nums">{e.period.replace(' - ', ' – ')}</span>
+                    {current && <span className="label !text-cyan !border-cyan/40">Current</span>}
+                  </p>
+                  <h3 className="mt-1 font-display text-xl font-semibold tracking-tight">{e.title}</h3>
+                  <p className="text-sm text-muted">{e.org}</p>
+                  {points.length > 0 ? (
+                    <ul className="mt-4 space-y-2">
+                      {points.map((p) => (
+                        <li key={p} className="flex gap-3 text-sm leading-relaxed text-muted">
+                          <Check size={16} className="mt-0.5 shrink-0 text-cyan" aria-hidden="true" />
+                          {p}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="mt-3 text-sm leading-relaxed text-muted">{e.detail}</p>
+                  )}
+                </div>
+              </StaggerItem>
+            );
+          })}
+        </Stagger>
+      </div>
+    </Section>
+  );
+};
 
 export default Experience;

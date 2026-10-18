@@ -1,32 +1,34 @@
 import type { ReactNode } from 'react';
-import { motion } from 'framer-motion';
-import { dur, ease } from '../lib/motion';
+import type { LucideIcon } from 'lucide-react';
+import { Reveal } from './Reveal';
 
-type Props = {
+type SectionProps = {
   id: string;
-  label: string;
+  band?: boolean;
   children: ReactNode;
 };
 
-// Every section shares one structure: a hairline rule, a label column and a content column.
-// The content fades in once as a block; individual items are not animated separately.
-const Section = ({ id, label, children }: Props) => (
-  <section id={id} className="section" aria-labelledby={`${id}-label`}>
-    <div className="container-x row-grid">
-      <h2 id={`${id}-label`} className="col-label text-sm font-medium text-muted md:pt-2">
-        {label}
-      </h2>
-      <motion.div
-        className="col-body"
-        initial={{ opacity: 0, y: 8 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.05 }}
-        transition={{ duration: dur.enter, ease }}
-      >
-        {children}
-      </motion.div>
-    </div>
+// Page section: shared vertical rhythm and container; `band` shifts the background one tonal layer.
+export const Section = ({ id, band, children }: SectionProps) => (
+  <section id={id} className={`section ${band ? 'bg-band' : ''}`}>
+    <div className="container-x">{children}</div>
   </section>
 );
 
-export default Section;
+type HeaderProps = {
+  icon: LucideIcon;
+  label: string;
+  title: ReactNode;
+  lead?: string;
+};
+
+// Shared section opener: icon + label, a clear heading, and an optional lead paragraph.
+export const SectionHeader = ({ icon: Icon, label, title, lead }: HeaderProps) => (
+  <Reveal className="mb-10 md:mb-14 max-w-2xl">
+    <p className="eyebrow mb-4">
+      <Icon size={16} aria-hidden="true" /> {label}
+    </p>
+    <h2 className="font-display text-3xl md:text-4xl font-semibold tracking-tight leading-tight">{title}</h2>
+    {lead && <p className="mt-4 text-muted leading-relaxed">{lead}</p>}
+  </Reveal>
+);
