@@ -1,89 +1,75 @@
-import { motion } from 'framer-motion';
-import { Brain, MessageSquareText, Wrench, Code2 } from 'lucide-react';
+import { Brain, ClipboardList, Database, FlaskConical, Server } from 'lucide-react';
+import Reveal from './Reveal';
+import SectionHead from './SectionHead';
 
-const tiles = [
+const groups = [
   {
-    title: "AI / ML Core",
-    blurb: "Models that learn, forecast and make decisions.",
+    title: "AI & LLM Engineering",
+    blurb: "Models that learn, retrieve and decide.",
     icon: Brain,
-    skills: ["Deep Learning", "Transformers", "Reinforcement Learning (DQN, PPO)", "LSTM", "XGBoost", "Time-Series"],
-    span: "md:col-span-2 md:row-span-2",
-    featured: true,
+    skills: ["Deep Learning", "Transformers", "Reinforcement Learning (DQN, PPO)", "LSTM", "XGBoost", "Time-Series", "RAG Pipelines", "Hugging Face", "DeBERTa-v3", "Sentence Transformers", "Semantic Search", "Embeddings", "PyTorch", "TensorFlow"],
   },
   {
-    title: "LLM & NLP",
-    blurb: "Retrieval and language understanding.",
-    icon: MessageSquareText,
-    skills: ["RAG Pipelines", "Hugging Face", "DeBERTa-v3", "Sentence Transformers", "Semantic Search", "Embeddings"],
-    span: "md:col-span-2",
+    title: "Backend & APIs",
+    blurb: "Services that put models to work.",
+    icon: Server,
+    skills: ["Python", "FastAPI", "Java", "HTML/CSS/JS"],
   },
   {
-    title: "Frameworks & Tools",
-    blurb: "Shipping it to production.",
-    icon: Wrench,
-    skills: ["PyTorch", "TensorFlow", "FastAPI", "FAISS", "ChromaDB", "NumPy / Pandas"],
-    span: "md:col-span-1",
+    title: "Data & Databases",
+    blurb: "Storage and retrieval.",
+    icon: Database,
+    skills: ["SQL", "FAISS", "ChromaDB", "Vector Search", "NumPy / Pandas"],
   },
   {
-    title: "Programming",
-    blurb: "Everyday languages.",
-    icon: Code2,
-    skills: ["Python", "Java", "SQL", "HTML/CSS/JS"],
-    span: "md:col-span-1",
+    title: "Testing & Evaluation",
+    blurb: "Proving it works.",
+    icon: FlaskConical,
+    skills: ["Playwright", "Test Automation", "LLM Evaluation", "Reproducible Test Cases"],
+  },
+  {
+    title: "Product & Systems Thinking",
+    blurb: "From workflow to requirement.",
+    icon: ClipboardList,
+    skills: ["Product Requirements", "Technical Documentation", "Workflow Analysis"],
   },
 ];
 
-const Skills = () => {
-  return (
-    <div className="max-w-6xl mx-auto">
-      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Technical Arsenal</h2>
-      <p className="text-white/50 text-center mb-14 max-w-xl mx-auto">
-        A focused stack, from research-grade models to production APIs.
-      </p>
+const Skills = () => (
+  <>
+    <SectionHead
+      index="02"
+      label="Skills"
+      title="A focused stack, from models to production."
+      lead="Grouped by what I use them for, drawn from my projects and internship work."
+    />
 
-      <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[minmax(190px,auto)] gap-4">
-        {tiles.map((t, idx) => {
-          const Icon = t.icon;
-          return (
-            <motion.div
-              key={t.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: idx * 0.08 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -4 }}
-              className={`${t.span} relative overflow-hidden p-7 glass rounded-3xl group transition-colors hover:border-accent-cyan/40 flex flex-col ${
-                t.featured ? "bg-gradient-to-br from-accent-blue/20 via-white/5 to-transparent justify-between" : ""
-              }`}
-            >
-              <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="grid place-items-center w-9 h-9 rounded-xl bg-accent-blue/15 text-accent-cyan">
-                    <Icon size={18} />
-                  </span>
-                  <h3 className="font-semibold tracking-tight text-lg">{t.title}</h3>
+    <ul className="border-b border-white/10">
+      {groups.map((g, i) => {
+        const Icon = g.icon;
+        return (
+          <li key={g.title} className="border-t border-white/10">
+            <Reveal delay={0.04 * i} className="grid md:grid-cols-12 gap-x-8 gap-y-4 py-8">
+              <div className="md:col-span-4 flex items-start gap-3">
+                <span className="grid place-items-center h-10 w-10 shrink-0 rounded-xl bg-accent-blue/15 text-accent-cyan">
+                  <Icon size={18} />
+                </span>
+                <div>
+                  <h3 className="font-semibold tracking-tight text-lg">{g.title}</h3>
+                  <p className="text-sm text-white/50">{g.blurb}</p>
                 </div>
-                <p className="text-white/45 text-sm mb-5">{t.blurb}</p>
               </div>
-
-              <div className="flex flex-wrap gap-2">
-                {t.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className={`rounded-full border border-white/10 bg-white/5 text-white/70 group-hover:text-white transition-colors ${
-                      t.featured ? "px-4 py-2 text-sm" : "px-3 py-1.5 text-xs"
-                    }`}
-                  >
-                    {skill}
-                  </span>
+              <ul className="md:col-span-8 flex flex-wrap content-start gap-2">
+                {g.skills.map((sk) => (
+                  <li key={sk} className="chip">{sk}</li>
                 ))}
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
+              </ul>
+            </Reveal>
+          </li>
+        );
+      })}
+    </ul>
+  </>
+);
 
 export default Skills;

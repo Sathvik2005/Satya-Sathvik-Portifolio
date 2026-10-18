@@ -1,106 +1,109 @@
-import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
+import Reveal from './Reveal';
+import SectionHead from './SectionHead';
 
-const projects = [
+// Add `github` / `demo` URLs here once they exist; icons only render for real links.
+type Project = {
+  title: string;
+  tag: string;
+  description: string;
+  focus: string;
+  outcome?: string;
+  tech: string[];
+  github?: string;
+  demo?: string;
+};
+
+const projects: Project[] = [
   {
     title: "TwinMind Pro",
     tag: "Real-Time AI Copilot",
     description: "A production-quality meeting assistant that listens to live audio and surfaces AI-powered suggestions in real-time.",
+    focus: "Live intelligence for human collaboration.",
     tech: ["React", "FastAPI", "Groq Whisper", "Llama-3.3-70B"],
-    link: "#",
-    github: "#",
-    tone: "Live intelligence for human collaboration."
   },
   {
     title: "Answer IQ",
     tag: "RAG Knowledge System",
     description: "Private knowledge systems powered by intelligent retrieval and semantic search over unstructured documents.",
+    focus: "Private knowledge systems powered by intelligent retrieval.",
     tech: ["FAISS", "Embeddings", "Hugging Face", "RAG"],
-    link: "#",
-    github: "#",
-    tone: "Private knowledge systems powered by intelligent retrieval."
   },
   {
     title: "InsightRecruiter",
     tag: "AI Hiring Engine",
-    description: "Transforming hiring with intelligent decision systems. Automated resume screening and semantic ranking.",
+    description: "Automated resume screening and semantic ranking to transform hiring with intelligent decision systems.",
+    focus: "Transforming hiring with intelligent decision systems.",
+    outcome: "60% faster resume shortlisting",
     tech: ["FastAPI", "Vector Search", "LLM Evaluation"],
-    link: "#",
-    github: "#",
-    tone: "Transforming hiring with intelligent decision systems."
   },
   {
     title: "Autonomous Taxi Agent",
     tag: "Deep Reinforcement Learning",
-    description: "Self-learning agent using PPO and SARSA. Achieved 35% performance improvement in complex tasks.",
+    description: "Self-learning agent using PPO and SARSA for complex decision tasks.",
+    focus: "Machines that learn from experience.",
+    outcome: "35% performance improvement",
     tech: ["Gymnasium", "PPO", "DQN", "Deep RL"],
-    link: "#",
-    github: "#",
-    tone: "Machines that learn from experience."
-  }
+  },
 ];
 
-// Bento placement: one hero tile, one wide tile, two compact tiles.
-const spans = [
-  "md:col-span-2 md:row-span-2",
-  "md:col-span-2",
-  "md:col-span-1",
-  "md:col-span-1",
-];
+const Projects = () => (
+  <>
+    <SectionHead
+      index="03"
+      label="Projects"
+      title={<>Featured <span className="text-gradient">work.</span></>}
+      lead="Each project is an exploration of technical limits and real-world utility."
+    />
 
-const Projects = () => {
-  return (
-    <div className="max-w-7xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
-        <div>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Featured <span className="text-gradient">Innovations</span></h2>
-          <p className="text-white/40 max-w-xl">Every project is an exploration of technical limits and real-world utility.</p>
-        </div>
-      </div>
+    <ol className="border-b border-white/10">
+      {projects.map((p, i) => (
+        <li key={p.title} className="border-t border-white/10">
+          <Reveal delay={0.04 * i} className="group grid md:grid-cols-12 gap-x-8 gap-y-4 py-10">
+            <div className="md:col-span-4">
+              <p className="text-sm font-semibold text-accent-cyan">{String(i + 1).padStart(2, '0')}</p>
+              <p className="eyebrow mt-2 !text-white/45">{p.tag}</p>
+            </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[minmax(230px,auto)] gap-4">
-        {projects.map((project, idx) => {
-          const featured = idx === 0;
-          return (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -4 }}
-              className={`${spans[idx]} group relative glass rounded-3xl overflow-hidden flex flex-col justify-between transition-colors hover:border-accent-cyan/40 ${
-                featured ? "p-9 bg-gradient-to-br from-accent-blue/20 via-white/5 to-transparent" : "p-7"
-              }`}
-            >
-              <div>
-                <div className="flex justify-between items-start mb-5">
-                  <span className="text-accent-cyan text-xs font-bold uppercase tracking-widest">
-                    {String(idx + 1).padStart(2, '0')} · {project.tag}
-                  </span>
-                  <div className="flex gap-3 text-white/40">
-                    <a href={project.github} aria-label={`${project.title} on GitHub`} className="hover:text-white transition-colors"><Github size={18} /></a>
-                    <a href={project.link} aria-label={`${project.title} live`} className="hover:text-white transition-colors"><ExternalLink size={18} /></a>
+            <div className="md:col-span-8">
+              <div className="flex items-start justify-between gap-4">
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight transition-colors group-hover:text-accent-cyan">
+                  {p.title}
+                </h3>
+                {(p.github || p.demo) && (
+                  <div className="flex gap-3 text-white/50">
+                    {p.github && (
+                      <a href={p.github} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} on GitHub`} className="hover:text-white transition-colors">
+                        <Github size={18} />
+                      </a>
+                    )}
+                    {p.demo && (
+                      <a href={p.demo} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} live demo`} className="hover:text-white transition-colors">
+                        <ExternalLink size={18} />
+                      </a>
+                    )}
                   </div>
-                </div>
-                <h3 className={`font-bold tracking-tight mb-3 ${featured ? "text-3xl md:text-4xl" : "text-xl"}`}>{project.title}</h3>
-                <p className="text-white/70 leading-relaxed text-sm md:text-base mb-4">{project.description}</p>
-                {featured && <p className="text-white/40 text-sm italic mb-6">"{project.tone}"</p>}
+                )}
               </div>
-
-              <div className="flex flex-wrap gap-2 mt-auto">
-                {project.tech.map((t) => (
-                  <span key={t} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase text-white/50 group-hover:text-white/80 transition-colors">
-                    {t}
-                  </span>
+              <p className="text-white/70 leading-relaxed mt-3 max-w-2xl">{p.description}</p>
+              <p className="text-sm text-white/45 mt-2">{p.focus}</p>
+              {p.outcome && (
+                <p className="mt-4 text-sm">
+                  <span className="text-white/45">Outcome · </span>
+                  <span className="font-semibold text-accent-cyan">{p.outcome}</span>
+                </p>
+              )}
+              <ul className="flex flex-wrap gap-2 mt-5" aria-label={`${p.title} technologies`}>
+                {p.tech.map((t) => (
+                  <li key={t} className="chip">{t}</li>
                 ))}
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
+              </ul>
+            </div>
+          </Reveal>
+        </li>
+      ))}
+    </ol>
+  </>
+);
 
 export default Projects;

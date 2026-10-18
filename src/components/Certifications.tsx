@@ -1,35 +1,38 @@
-import { motion } from 'framer-motion';
 import { Award, ShieldCheck } from 'lucide-react';
+import ActionLink from './ActionLink';
+import Reveal from './Reveal';
+import SectionHead from './SectionHead';
 
-const Certifications = () => {
-  return (
-    <div className="max-w-4xl mx-auto flex flex-col items-center">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        className="glass p-10 rounded-[2rem] w-full border-accent-blue/20 bg-accent-blue/5 flex flex-col md:flex-row items-center gap-8"
-      >
-        <div className="w-20 h-20 rounded-2xl bg-accent-blue/20 flex items-center justify-center text-accent-blue">
-          <Award size={40} />
-        </div>
-        
-        <div className="flex-1 text-center md:text-left">
-          <h3 className="text-2xl font-bold mb-2">Oracle Cloud Infrastructure 2025</h3>
-          <p className="text-accent-cyan font-bold uppercase tracking-widest text-xs mb-4 flex items-center justify-center md:justify-start gap-2">
-            <ShieldCheck size={14} /> Generative AI Certified Professional
-          </p>
-          <p className="text-white/60 leading-relaxed max-w-xl">
-            Certified technical mastery in deploying and scaling Generative AI solutions within enterprise cloud environments.
-          </p>
-        </div>
+// Set `verifyUrl` to the credential link when available; the button is hidden until then.
+const certifications: { title: string; issuer: string; verifyUrl?: string }[] = [
+  { title: "Oracle Cloud Infrastructure 2025", issuer: "Generative AI Certified Professional" },
+];
 
-        <div className="glass px-6 py-3 rounded-full text-sm font-bold border-white/5 hover:bg-white/10 transition-colors cursor-pointer">
-          Verify Credential
-        </div>
-      </motion.div>
-    </div>
-  );
-};
+const Certifications = () => (
+  <>
+    <SectionHead index="05" label="Certifications" title="Credentials." />
+
+    <ul className="border-b border-white/10">
+      {certifications.map((c) => (
+        <li key={c.title} className="border-t border-white/10">
+          <Reveal className="flex items-center gap-5 py-8">
+            <span className="grid place-items-center h-14 w-14 shrink-0 rounded-2xl bg-accent-blue/15 text-accent-cyan">
+              <Award size={26} />
+            </span>
+            <div className="flex-1 min-w-0">
+              <h3 className="text-lg md:text-xl font-bold tracking-tight">{c.title}</h3>
+              <p className="eyebrow mt-1 flex items-center gap-2">
+                <ShieldCheck size={14} /> {c.issuer}
+              </p>
+            </div>
+            {c.verifyUrl && (
+              <ActionLink href={c.verifyUrl} className="btn btn-ghost shrink-0">Verify</ActionLink>
+            )}
+          </Reveal>
+        </li>
+      ))}
+    </ul>
+  </>
+);
 
 export default Certifications;

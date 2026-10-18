@@ -1,4 +1,4 @@
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { MotionConfig, motion, useScroll, useSpring } from 'framer-motion';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
@@ -10,59 +10,59 @@ import Navbar from './components/Navbar';
 
 function App() {
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
 
   return (
-    <div className="relative min-h-screen bg-background font-sans">
-      {/* Background Glow */}
-      <div className="glow-mesh" />
-      
-      {/* Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-accent-blue z-50 origin-left"
-        style={{ scaleX }}
-      />
+    // reducedMotion="user" disables transform animations for people who ask for less motion.
+    <MotionConfig reducedMotion="user">
+      <div className="relative min-h-screen bg-background font-sans">
+        <div className="glow-mesh" />
 
-      <Navbar />
+        <motion.div
+          className="fixed top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-blue to-accent-cyan z-50 origin-left"
+          style={{ scaleX }}
+        />
 
-      <main>
-        <section id="hero">
-          <Hero />
-        </section>
-        
-        <section id="about" className="py-20 px-6 lg:px-20">
-          <About />
-        </section>
+        <Navbar />
 
-        <section id="skills" className="py-20 px-6 lg:px-20 bg-white/5">
-          <Skills />
-        </section>
+        <main>
+          <section id="hero" className="pt-32 pb-12 md:pt-40 md:pb-20">
+            <div className="container-x"><Hero /></div>
+          </section>
 
-        <section id="projects" className="py-20 px-6 lg:px-20">
-          <Projects />
-        </section>
+          <section id="about" className="section">
+            <div className="container-x"><About /></div>
+          </section>
 
-        <section id="experience" className="py-20 px-6 lg:px-20 bg-white/5">
-          <Experience />
-        </section>
+          <section id="skills" className="section">
+            <div className="container-x"><Skills /></div>
+          </section>
 
-        <section id="certifications" className="py-10 px-6 lg:px-20">
-          <Certifications />
-        </section>
+          <section id="projects" className="section">
+            <div className="container-x"><Projects /></div>
+          </section>
 
-        <section id="contact" className="py-20 px-6 lg:px-20">
-          <Contact />
-        </section>
-      </main>
+          <section id="experience" className="section">
+            <div className="container-x"><Experience /></div>
+          </section>
 
-      <footer className="py-10 text-center text-white/40 text-sm border-t border-white/5">
-        &copy; {new Date().getFullYear()} Kanithi Satya Sathvik. Engineered with Intelligence.
-      </footer>
-    </div>
+          <section id="certifications" className="section">
+            <div className="container-x"><Certifications /></div>
+          </section>
+
+          <section id="contact" className="section">
+            <div className="container-x"><Contact /></div>
+          </section>
+        </main>
+
+        <footer className="border-t border-white/10 py-8">
+          <div className="container-x flex flex-col sm:flex-row justify-between gap-2 text-xs text-white/50">
+            <span>&copy; {new Date().getFullYear()} Kanithi Satya Sathvik</span>
+            <span>AI Engineer · Bengaluru, India</span>
+          </div>
+        </footer>
+      </div>
+    </MotionConfig>
   );
 }
 

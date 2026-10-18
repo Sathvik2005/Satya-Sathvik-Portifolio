@@ -1,53 +1,52 @@
-import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Github, Linkedin, Mail, FileText } from 'lucide-react';
+import ActionLink from './ActionLink';
+import Reveal from './Reveal';
+import SectionHead from './SectionHead';
+import { links } from '../lib/links';
 
-const Contact = () => {
-  return (
-    <div className="max-w-6xl mx-auto text-center">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-5xl md:text-7xl font-bold tracking-tight mb-8">
-          Let’s Build the <span className="text-gradient">Future of AI</span> Together
-        </h2>
-        
-        <p className="max-w-2xl mx-auto text-white/50 text-xl mb-16 leading-relaxed">
-          Currently open to opportunities in AI Engineering, LLM Systems, and Intelligent Platforms. 
-          Let’s discuss how we can scale impact through intelligence.
-        </p>
+const channels = [
+  { icon: Mail, label: "Email", value: "kanithisathvik@gmail.com", href: links.email },
+  { icon: Linkedin, label: "LinkedIn", value: "Satya Sathvik", href: links.linkedin },
+  { icon: Github, label: "GitHub", value: "@kanithisathvik", href: links.github },
+  { icon: FileText, label: "Resume", value: "Download PDF", href: links.resume },
+];
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-          <a href="mailto:kanithisathvik@gmail.com" className="glass p-8 rounded-3xl group hover:bg-white/10 transition-all">
-            <Mail className="mx-auto mb-4 text-accent-blue group-hover:scale-110 transition-transform" size={32} />
-            <h3 className="font-bold mb-1">Email</h3>
-            <p className="text-white/40 text-sm">kanithisathvik@gmail.com</p>
-          </a>
-          
-          <a href="#" className="glass p-8 rounded-3xl group hover:bg-white/10 transition-all">
-            <Linkedin className="mx-auto mb-4 text-accent-blue group-hover:scale-110 transition-transform" size={32} />
-            <h3 className="font-bold mb-1">LinkedIn</h3>
-            <p className="text-white/40 text-sm">Satya Sathvik</p>
-          </a>
+const Contact = () => (
+  <>
+    <SectionHead
+      index="06"
+      label="Contact"
+      title={<>Have an interesting <span className="text-gradient">problem to solve?</span></>}
+      lead="Open to AI engineering, LLM systems and AI-native product roles. If you have something worth building, I’d like to hear about it."
+    />
 
-          <a href="#" className="glass p-8 rounded-3xl group hover:bg-white/10 transition-all">
-            <Github className="mx-auto mb-4 text-accent-blue group-hover:scale-110 transition-transform" size={32} />
-            <h3 className="font-bold mb-1">GitHub</h3>
-            <p className="text-white/40 text-sm">@kanithisathvik</p>
-          </a>
-        </div>
-
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="px-12 py-6 bg-accent-blue rounded-full font-bold text-xl flex items-center gap-3 mx-auto group shadow-[0_0_40px_rgba(0,80,255,0.4)]"
-        >
-          Download Resume <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-        </motion.button>
-      </motion.div>
-    </div>
-  );
-};
+    <ul className="border-b border-white/10">
+      {channels.map(({ icon: Icon, label, value, href }, i) => (
+        <li key={label} className="border-t border-white/10">
+          <Reveal delay={0.04 * i}>
+            <ActionLink href={href} className="panel-link group grid grid-cols-12 items-center gap-x-6 py-6 transition-colors hover:bg-white/[0.03]">
+              <span className="col-span-8 md:col-span-4 flex items-center gap-3">
+                <span className="grid place-items-center h-10 w-10 rounded-xl bg-accent-blue/15 text-accent-cyan">
+                  <Icon size={18} />
+                </span>
+                <span className="text-xs uppercase tracking-widest text-white/50">{label}</span>
+              </span>
+              <span className="col-span-12 md:col-span-6 order-last md:order-none mt-3 md:mt-0 font-semibold tracking-tight text-lg break-words">
+                {value}
+              </span>
+              <span className="col-span-4 md:col-span-2 justify-self-end">
+                {href ? (
+                  <ArrowUpRight size={18} className="text-white/40 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" />
+                ) : (
+                  <span className="text-[10px] uppercase tracking-widest text-white/40">Link pending</span>
+                )}
+              </span>
+            </ActionLink>
+          </Reveal>
+        </li>
+      ))}
+    </ul>
+  </>
+);
 
 export default Contact;
