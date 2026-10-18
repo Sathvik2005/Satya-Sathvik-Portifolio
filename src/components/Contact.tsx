@@ -29,7 +29,7 @@ const Contact = () => {
         icon={Send}
         label="Contact"
         title={<>Let’s build <span className="text-gradient">something useful.</span></>}
-        lead="Open to AI products, internships, and engineering work. Email is the fastest way to reach me."
+        lead="I’m open to AI engineering, ML and software roles, and to interesting problems worth building. Email is the fastest way to reach me."
       />
 
       <Stagger className="bento">

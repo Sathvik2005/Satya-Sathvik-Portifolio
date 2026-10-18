@@ -33,10 +33,10 @@ const Navbar = () => {
   // Highlight the section crossing the upper third of the viewport.
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id === 'hero' ? '' : e.target.id)),
       { rootMargin: '-30% 0px -60% 0px' }
     );
-    links.forEach(({ id }) => {
+    ['hero', ...links.map((l) => l.id)].forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });

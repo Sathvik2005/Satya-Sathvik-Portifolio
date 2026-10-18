@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, Database, FileText, Github, Zap, BarChart3 } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, BarChart3, Briefcase, Database, FileText, GraduationCap, Github, Target, Zap } from 'lucide-react';
 import CatMark from './CatMark';
 import { dur, ease } from '../lib/motion';
 import { links } from '../lib/links';
@@ -13,6 +13,12 @@ const highlights = [
 ];
 
 // Terminal content comes from the verified portfolio data.
+const status = [
+  { icon: Briefcase, label: 'Now', text: 'SDE intern at Logikality, Bengaluru' },
+  { icon: Target, label: 'Open to', text: 'AI engineer, ML engineer, SDE and AI product roles' },
+  { icon: GraduationCap, label: 'Education', text: 'B.Tech CSE (AI & ML), VIT-AP · CGPA 8.45' },
+];
+
 const lines = [
   { cmd: 'whoami', out: 'kanithi-satya-sathvik · AI engineer' },
   { cmd: 'cat now.txt', out: 'SDE intern @ Logikality · test automation + AI workflows' },
@@ -71,8 +77,8 @@ const Hero = () => {
           </h1>
 
           <motion.p {...rise(0.45)} className="mt-6 max-w-xl text-lg text-muted leading-relaxed">
-            AI engineering, backend systems, and evaluation-driven development — turning ideas into software
-            that can be tested, understood, and improved.
+            I’m Sathvik. I build LLM and RAG systems, voice and text-to-SQL products, and the tests and
+            evaluation that keep them reliable.
           </motion.p>
 
           <motion.div {...rise(0.58)} className="mt-9 flex flex-wrap items-center gap-3">
@@ -150,6 +156,22 @@ const Hero = () => {
           </div>
         </motion.div>
       </div>
+
+      <motion.ul
+        {...rise(1)}
+        className="container-x mt-16 grid gap-[var(--gap)] sm:grid-cols-3"
+        aria-label="At a glance"
+      >
+        {status.map(({ icon: Icon, label, text }) => (
+          <li key={label} className="tile flex items-start gap-4">
+            <span className="icon-tile"><Icon size={18} aria-hidden="true" /></span>
+            <div>
+              <p className="text-xs font-medium text-accent">{label}</p>
+              <p className="mt-1 text-sm leading-relaxed">{text}</p>
+            </div>
+          </li>
+        ))}
+      </motion.ul>
     </section>
   );
 };

@@ -1,8 +1,12 @@
-import { Brain, Crosshair, GraduationCap, Globe, MapPin, Rocket, Target, User } from 'lucide-react';
+import { Brain, Crosshair, Globe, Rocket, Target, User } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Reveal, Stagger, StaggerItem } from './Reveal';
 import { Section, SectionHeader } from './Section';
-import { aboutIntro, currentFocus, profile, stats, strengths } from '../data/portfolio';
+import CountUp from './CountUp';
+import { currentFocus, stats, strengths } from '../data/portfolio';
+
+const metricLabels = ['AI projects shipped', 'Records analyzed', 'Voice AI response latency', 'Text-to-SQL test pass rate'];
+const metrics = metricLabels.map((l) => stats.find((s) => s.label === l)).filter((m): m is (typeof stats)[number] => Boolean(m));
 
 const strengthIcons: Record<string, LucideIcon> = {
   'Product-focused AI': Target,
@@ -11,7 +15,6 @@ const strengthIcons: Record<string, LucideIcon> = {
   'Real-world scope': Globe,
 };
 
-const cgpa = stats.find((s) => s.label === 'CGPA')?.value;
 
 const About = () => (
   <Section id="about">
@@ -23,17 +26,15 @@ const About = () => (
           title={<>AI systems that <span className="text-gradient">ship, scale, and get used.</span></>}
         />
         <Reveal delay={0.1} className="space-y-6 text-muted leading-relaxed max-w-xl">
-          <p>{aboutIntro.body}</p>
-          <ul className="space-y-3 text-sm">
-            <li className="flex items-start gap-3">
-              <GraduationCap size={18} className="mt-0.5 shrink-0 text-accent" aria-hidden="true" />
-              <span>B.Tech, Computer Science (AI &amp; ML) · VIT-AP University · CGPA {cgpa}</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <MapPin size={18} className="mt-0.5 shrink-0 text-accent" aria-hidden="true" />
-              <span>{profile.location}</span>
-            </li>
-          </ul>
+          <p>
+            I’m an AI engineer with a B.Tech in Computer Science (AI &amp; ML) from VIT-AP University. I like turning
+            models into tools people actually use: RAG search, text-to-SQL, live meeting copilots, and a voice
+            assistant that replies in under 800 ms.
+          </p>
+          <p>
+            At Logikality I turn business rules into testable scenarios and Playwright automation. That shapes how
+            I build everywhere else: define the behavior, test it, then measure it.
+          </p>
         </Reveal>
       </div>
 
@@ -62,6 +63,19 @@ const About = () => (
         </Reveal>
       </div>
     </div>
+
+    <Stagger tag="ul" className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-[var(--gap)]" >
+      {metrics.map((m) => (
+        <StaggerItem key={m.label} tag="li">
+          <div className="tile h-full">
+            <p className="font-display text-4xl font-semibold tracking-tight text-gradient w-fit">
+              <CountUp value={m.value} />
+            </p>
+            <p className="mt-2 text-sm text-muted">{m.label}</p>
+          </div>
+        </StaggerItem>
+      ))}
+    </Stagger>
   </Section>
 );
 
