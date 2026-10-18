@@ -1,73 +1,60 @@
-# React + TypeScript + Vite
+# Kanithi Satya Sathvik — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio of an AI engineer and SDE intern: projects, skills, experience and contact.
 
-Currently, two official plugins are available:
+**Live site:** https://sathvik-portfolio-black.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- React 19 + TypeScript, built with Vite
+- Tailwind CSS with CSS-variable design tokens
+- Framer Motion for animation (reduced-motion aware)
+- Lucide icons
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Warm coral and amber palette, with dark and light themes. It follows the system setting on first visit, then remembers your choice.
+- Shared layout system: one container, one 12-column grid, one spacing scale.
+- Glass navbar with a sliding active-section indicator and a mobile menu.
+- Scroll-progress bar and short, staggered reveal animations.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Run locally
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # type-check + production build into dist/
+npm run lint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Project structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+  components/         Hero, About, Skills, Projects, Experience, Certifications, Contact, Navbar
+  data/portfolio.ts   all portfolio content (projects, skills, timeline, certifications)
+  lib/links.ts        outbound links, read from the data file
+  lib/motion.ts       shared easing and durations
+  index.css           design tokens and layout primitives
+public/               resume PDF and certificates
+legacy/               the previous full-stack version of this portfolio (Express + Vite)
+```
+
+## Editing content
+
+Everything shown on the site comes from `src/data/portfolio.ts`. Change a project, skill, link or
+timeline entry there. Colors, spacing and motion timing are defined once at the top of `src/index.css`.
+
+## Deployment
+
+Deployed on Vercel as a static Vite build (`npm run build`, output `dist/`). The `legacy/` folder is
+excluded from uploads via `.vercelignore`.
+
+```bash
+vercel --prod
+```
+
+## Legacy app
+
+The earlier version, with an Express backend and contact form, is preserved in [`legacy/`](legacy/).
+It has its own `package.json` and README and runs independently.
