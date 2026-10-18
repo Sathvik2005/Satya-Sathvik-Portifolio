@@ -3,11 +3,12 @@ import ActionLink from './ActionLink';
 import Reveal from './Reveal';
 import SectionHead from './SectionHead';
 import { links } from '../lib/links';
+import { profile } from '../data/portfolio';
 
 const channels = [
-  { icon: Mail, label: "Email", value: "kanithisathvik@gmail.com", href: links.email },
-  { icon: Linkedin, label: "LinkedIn", value: "Satya Sathvik", href: links.linkedin },
-  { icon: Github, label: "GitHub", value: "@kanithisathvik", href: links.github },
+  { icon: Mail, label: "Email", value: profile.email, href: links.email },
+  { icon: Linkedin, label: "LinkedIn", value: "Kanithi Satya Sathvik", href: links.linkedin },
+  { icon: Github, label: "GitHub", value: "Sathvik2005", href: links.github },
   { icon: FileText, label: "Resume", value: "Download PDF", href: links.resume },
 ];
 
@@ -16,8 +17,8 @@ const Contact = () => (
     <SectionHead
       index="06"
       label="Contact"
-      title={<>Have an interesting <span className="text-gradient">problem to solve?</span></>}
-      lead="Open to AI engineering, LLM systems and AI-native product roles. If you have something worth building, I’d like to hear about it."
+      title={<>Let’s talk about <span className="text-gradient">AI products and high-impact engineering.</span></>}
+      lead="Open to AI products, internships, and engineering work. Reach me by email, LinkedIn, or GitHub."
     />
 
     <ul className="border-b border-white/10">

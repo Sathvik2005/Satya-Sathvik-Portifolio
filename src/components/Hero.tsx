@@ -3,19 +3,20 @@ import { ArrowRight, FileText, Github, Linkedin, Mail, MapPin, Phone } from 'luc
 import ActionLink from './ActionLink';
 import { dur, ease } from '../lib/motion';
 import { links } from '../lib/links';
+import { profile, stats } from '../data/portfolio';
 
-const highlights = [
-  { value: "60%", label: "Faster resume shortlisting" },
-  { value: "95%", label: "Text-to-SQL test pass rate" },
-  { value: "35%", label: "Taxi failures reduced" },
-];
+// Three headline numbers from the verified stats list.
+const highlightLabels = ["Voice AI response latency", "Text-to-SQL test pass rate", "Faster resume shortlisting"];
+const highlights = highlightLabels
+  .map((label) => stats.find((s) => s.label === label))
+  .filter((s): s is (typeof stats)[number] => Boolean(s));
 
 const contacts = [
-  { icon: Mail, text: "kanithisathvik@gmail.com", href: links.email },
-  { icon: Phone, text: "+91 9515136729", href: links.phone },
-  { icon: MapPin, text: "Bengaluru, India" },
-  { icon: Linkedin, text: "LinkedIn", href: links.linkedin, pending: true },
-  { icon: Github, text: "GitHub", href: links.github, pending: true },
+  { icon: Mail, text: profile.email, href: links.email },
+  { icon: Phone, text: profile.phoneDisplay, href: links.phone },
+  { icon: MapPin, text: profile.location },
+  { icon: Linkedin, text: "LinkedIn", href: links.linkedin },
+  { icon: Github, text: "GitHub", href: links.github },
 ];
 
 // Staggered load reveal: each child fades up shortly after the previous one.
@@ -29,18 +30,17 @@ const Hero = () => {
   return (
     <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-start">
       <div className="lg:col-span-7">
-        <motion.p {...item(0)} className="eyebrow mb-5">AI Engineer · SDE Intern at Logikality</motion.p>
+        <motion.p {...item(0)} className="eyebrow mb-5">AI-first engineer building real-world intelligent systems</motion.p>
 
         <motion.h1
           {...item(1)}
-          className="text-[clamp(2.5rem,6vw,4.5rem)] font-bold tracking-tight leading-[1.05] mb-6"
+          className="text-[clamp(2.25rem,5.2vw,4rem)] font-bold tracking-tight leading-[1.07] mb-6"
         >
-          I build AI systems <span className="text-gradient">beyond the demo.</span>
+          Building AI that turns messy workflows into <span className="text-gradient">reliable products.</span>
         </motion.h1>
 
         <motion.p {...item(2)} className="max-w-xl text-white/60 text-base md:text-lg leading-relaxed mb-8">
-          AI engineering, backend systems, and evaluation-driven development — turning prototypes into software
-          that can be tested, understood, and improved.
+          {profile.heroSummary}
         </motion.p>
 
         <motion.div {...item(3)} className="flex flex-wrap gap-3 mb-12">
@@ -64,11 +64,11 @@ const Hero = () => {
 
       <motion.aside {...item(3)} className="lg:col-span-5 panel" aria-label="Profile snapshot">
         <p className="eyebrow mb-5">Profile snapshot</p>
-        <h2 className="text-2xl font-bold tracking-tight">Kanithi Satya Sathvik</h2>
-        <p className="text-white/50 text-sm mb-6">SDE Intern · AI Engineer</p>
+        <h2 className="text-2xl font-bold tracking-tight">{profile.name}</h2>
+        <p className="text-white/50 text-sm mb-6">{profile.role}</p>
 
         <ul className="space-y-1 mb-6">
-          {contacts.map(({ icon: Icon, text, href, pending }) => (
+          {contacts.map(({ icon: Icon, text, href }) => (
             <li key={text}>
               {href ? (
                 <a
@@ -79,9 +79,8 @@ const Hero = () => {
                   <Icon size={16} className="text-accent-cyan shrink-0" /> {text}
                 </a>
               ) : (
-                <span className={`flex items-center gap-3 min-h-[40px] text-sm ${pending ? 'text-white/35' : 'text-white/70'}`}>
-                  <Icon size={16} className={`shrink-0 ${pending ? 'text-white/30' : 'text-accent-cyan'}`} /> {text}
-                  {pending && <span className="ml-auto text-[10px] uppercase tracking-widest">Link pending</span>}
+                <span className="flex items-center gap-3 min-h-[40px] text-sm text-white/70">
+                  <Icon size={16} className="text-accent-cyan shrink-0" /> {text}
                 </span>
               )}
             </li>
@@ -90,10 +89,7 @@ const Hero = () => {
 
         <div className="rounded-2xl border border-accent-blue/20 bg-accent-blue/10 p-4">
           <p className="eyebrow mb-2">Open to roles</p>
-          <p className="text-sm text-white/70 leading-relaxed">
-            AI Engineer, ML Engineer, FDE, Product Manager (AI), Data Engineer, Data Analyst, Data Scientist, SDE,
-            and AI-native product engineering roles.
-          </p>
+          <p className="text-sm text-white/70 leading-relaxed">{profile.openTo.replace(/^Open to /, '')}</p>
         </div>
       </motion.aside>
     </div>

@@ -58,7 +58,7 @@ function App() {
         <footer className="border-t border-white/10 py-8">
           <div className="container-x flex flex-col sm:flex-row justify-between gap-2 text-xs text-white/50">
             <span>&copy; {new Date().getFullYear()} Kanithi Satya Sathvik</span>
-            <span>AI Engineer · Bengaluru, India</span>
+            <span>SDE Intern · AI Engineer · Bengaluru, India</span>
           </div>
         </footer>
       </div>
