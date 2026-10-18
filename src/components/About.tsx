@@ -24,7 +24,7 @@ const About = () => (
       <ul className="lg:col-span-7 grid sm:grid-cols-2 gap-x-8 gap-y-8 content-start">
         {strengths.map((s, i) => (
           <li key={s.title}>
-            <Reveal delay={0.06 * i} className="border-l-2 border-accent-blue pl-5">
+            <Reveal delay={0.06 * i} className="border-l-2 border-accent pl-5">
               <h3 className="font-semibold mb-1">{s.title}</h3>
               <p className="text-sm text-white/60 leading-relaxed">{s.description}</p>
             </Reveal>

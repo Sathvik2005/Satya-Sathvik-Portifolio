@@ -19,7 +19,7 @@ const Certifications = () => (
         return (
           <li key={c.title} className="border-t border-white/10">
             <Reveal delay={0.04 * i} className="flex items-center gap-5 py-6">
-              <span className="grid place-items-center h-12 w-12 shrink-0 rounded-2xl bg-accent-blue/15 text-accent-cyan">
+              <span className="grid place-items-center h-12 w-12 shrink-0 rounded-2xl bg-accent/15 text-accent-alt">
                 <Award size={22} />
               </span>
               <div className="flex-1 min-w-0">

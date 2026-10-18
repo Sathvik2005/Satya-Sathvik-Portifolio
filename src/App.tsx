@@ -19,7 +19,7 @@ function App() {
         <div className="glow-mesh" />
 
         <motion.div
-          className="fixed top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-blue to-accent-cyan z-50 origin-left"
+          className="fixed top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent to-accent-alt z-50 origin-left"
           style={{ scaleX }}
         />
 

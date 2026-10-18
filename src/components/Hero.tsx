@@ -76,18 +76,18 @@ const Hero = () => {
                   {...(href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   className="flex items-center gap-3 min-h-[40px] text-sm text-white/70 hover:text-white transition-colors"
                 >
-                  <Icon size={16} className="text-accent-cyan shrink-0" /> {text}
+                  <Icon size={16} className="text-accent-alt shrink-0" /> {text}
                 </a>
               ) : (
                 <span className="flex items-center gap-3 min-h-[40px] text-sm text-white/70">
-                  <Icon size={16} className="text-accent-cyan shrink-0" /> {text}
+                  <Icon size={16} className="text-accent-alt shrink-0" /> {text}
                 </span>
               )}
             </li>
           ))}
         </ul>
 
-        <div className="rounded-2xl border border-accent-blue/20 bg-accent-blue/10 p-4">
+        <div className="rounded-2xl border border-accent/20 bg-accent/10 p-4">
           <p className="eyebrow mb-2">Open to roles</p>
           <p className="text-sm text-white/70 leading-relaxed">{profile.openTo.replace(/^Open to /, '')}</p>
         </div>

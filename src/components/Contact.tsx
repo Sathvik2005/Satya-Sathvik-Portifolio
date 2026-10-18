@@ -27,7 +27,7 @@ const Contact = () => (
           <Reveal delay={0.04 * i}>
             <ActionLink href={href} className="panel-link group grid grid-cols-12 items-center gap-x-6 py-6 transition-colors hover:bg-white/[0.03]">
               <span className="col-span-8 md:col-span-4 flex items-center gap-3">
-                <span className="grid place-items-center h-10 w-10 rounded-xl bg-accent-blue/15 text-accent-cyan">
+                <span className="grid place-items-center h-10 w-10 rounded-xl bg-accent/15 text-accent-alt">
                   <Icon size={18} />
                 </span>
                 <span className="text-xs uppercase tracking-widest text-white/50">{label}</span>

@@ -11,9 +11,10 @@ export default {
         // "white" is the theme foreground, so every text-white/xx, bg-white/xx and border-white/xx adapts.
         white: "rgb(var(--fg) / <alpha-value>)",
         accent: {
-          blue: "#0050FF",
-          cyan: "rgb(var(--cyan) / <alpha-value>)",
+          DEFAULT: "rgb(var(--accent) / <alpha-value>)",
+          alt: "rgb(var(--accent-alt) / <alpha-value>)",
         },
+        "on-accent": "rgb(var(--on-accent) / <alpha-value>)",
       },
       fontFamily: {
         sans: ['Inter', 'SF Pro Display', 'system-ui', 'sans-serif'],

@@ -25,7 +25,7 @@ const Skills = () => (
           <li key={g.title} className="border-t border-white/10">
             <Reveal delay={0.03 * i} className="grid md:grid-cols-12 gap-x-8 gap-y-4 py-7">
               <div className="md:col-span-4 flex items-center gap-3">
-                <span className="grid place-items-center h-10 w-10 shrink-0 rounded-xl bg-accent-blue/15 text-accent-cyan">
+                <span className="grid place-items-center h-10 w-10 shrink-0 rounded-xl bg-accent/15 text-accent-alt">
                   <Icon size={18} />
                 </span>
                 <h3 className="font-semibold tracking-tight text-lg">{g.title}</h3>

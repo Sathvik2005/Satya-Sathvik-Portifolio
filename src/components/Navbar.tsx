@@ -12,7 +12,7 @@ const links = [
 ];
 
 const iconButton =
-  'grid place-items-center h-10 w-10 rounded-xl border border-white/15 bg-white/5 text-white/70 hover:text-white hover:bg-white/10 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-cyan';
+  'grid place-items-center h-10 w-10 rounded-xl border border-white/15 bg-white/5 text-white/70 hover:text-white hover:bg-white/10 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-alt';
 
 const Navbar = () => {
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'));
@@ -56,8 +56,8 @@ const Navbar = () => {
       aria-label="Primary"
     >
       <div className="container-x h-16 flex items-center justify-between">
-        <a href="#hero" className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-cyan rounded-lg">
-          <span className="grid place-items-center h-9 w-9 rounded-xl bg-accent-blue text-[#ffffff] text-xs font-bold tracking-tight">
+        <a href="#hero" className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-alt rounded-lg">
+          <span className="grid place-items-center h-9 w-9 rounded-xl bg-accent text-on-accent text-xs font-bold tracking-tight">
             SK
           </span>
           <span className="text-sm font-semibold tracking-tight">Sathvik Kanithi</span>
@@ -70,7 +70,7 @@ const Navbar = () => {
                 <a
                   href={`#${id}`}
                   aria-current={active === id ? 'true' : undefined}
-                  className={`relative block px-3 py-2 rounded-lg transition-colors focus-visible:outline-2 focus-visible:outline-accent-cyan ${
+                  className={`relative block px-3 py-2 rounded-lg transition-colors focus-visible:outline-2 focus-visible:outline-accent-alt ${
                     active === id ? 'text-white' : 'text-white/60 hover:text-white'
                   }`}
                 >
@@ -125,7 +125,7 @@ const Navbar = () => {
                     onClick={() => setOpen(false)}
                     aria-current={active === id ? 'true' : undefined}
                     className={`flex items-center justify-between min-h-[48px] px-2 text-base font-medium ${
-                      active === id ? 'text-accent-cyan' : 'text-white/80'
+                      active === id ? 'text-accent-alt' : 'text-white/80'
                     }`}
                   >
                     {label}

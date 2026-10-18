@@ -44,7 +44,7 @@ const Experience = () => (
                   <ul className="mt-4 space-y-2 max-w-2xl">
                     {points.map((p) => (
                       <li key={p} className="flex gap-3 text-white/70 leading-relaxed">
-                        <span className="mt-[0.7em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent-blue" />
+                        <span className="mt-[0.7em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                         {p}
                       </li>
                     ))}
@@ -65,7 +65,7 @@ const Experience = () => (
         <ul className="space-y-3">
           {achievements.map((a) => (
             <li key={a} className="flex gap-3 text-white/70 leading-relaxed">
-              <span className="mt-[0.7em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent-blue" />
+              <span className="mt-[0.7em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
               {a}
             </li>
           ))}

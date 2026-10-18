@@ -19,8 +19,8 @@ const Projects = () => (
           <li key={p.title} className="border-t border-white/10">
             <Reveal className="group grid md:grid-cols-12 gap-x-8 gap-y-4 py-9">
               <div className="md:col-span-4">
-                <p className="text-sm font-semibold text-accent-cyan">{String(i + 1).padStart(2, '0')}</p>
-                <h3 className="mt-2 text-xl md:text-2xl font-bold tracking-tight transition-colors group-hover:text-accent-cyan">
+                <p className="text-sm font-semibold text-accent-alt">{String(i + 1).padStart(2, '0')}</p>
+                <h3 className="mt-2 text-xl md:text-2xl font-bold tracking-tight transition-colors group-hover:text-accent-alt">
                   {p.title}
                 </h3>
                 <p className="mt-2 text-sm text-white/55 leading-relaxed">{p.tagline}</p>
@@ -49,7 +49,7 @@ const Projects = () => (
                     href={p.links.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white/70 hover:text-accent-cyan transition-colors"
+                    className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white/70 hover:text-accent-alt transition-colors"
                   >
                     <Github size={16} /> View GitHub
                     <span className="sr-only"> repository for {p.title}</span>
