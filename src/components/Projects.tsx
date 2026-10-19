@@ -2,7 +2,7 @@ import { useState, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { LucideIcon } from 'lucide-react';
 import {
-  Activity, ArrowUpRight, AudioLines, BarChart3, Brain, Car, ChevronRight, Database, FileSearch, FolderGit2,
+  Activity, ArrowUpRight, AudioLines, BarChart3, Brain, Car, ChevronRight, ClipboardList, Database, FileSearch, FolderGit2,
   HeartPulse, Lightbulb, MessageSquareText, Mic, Telescope, TrendingUp, Users, AudioWaveform,
 } from 'lucide-react';
 import { Reveal, Stagger, StaggerItem } from './Reveal';
@@ -15,6 +15,7 @@ const meta: Record<string, Meta> = {
   'TwinMind Pro': { group: 'LLM & RAG', kind: 'Live copilot', icon: AudioLines },
   'SniperThink Voice AI': { group: 'LLM & RAG', kind: 'Voice AI', icon: Mic, outcome: 'Replies in under 800 ms' },
   'CogniNest AI': { group: 'Data & SQL', kind: 'Text-to-SQL', icon: Database, outcome: '19/20 test questions passed (95%)' },
+  'Trao Interview Prep Kit': { group: 'LLM & RAG', kind: 'Interview prep', icon: ClipboardList, outcome: '28 tests, deployed end to end' },
   'NeuroResearch': { group: 'LLM & RAG', kind: 'Research agent', icon: Telescope },
   'Insurance Risk Analytics': { group: 'Data & SQL', kind: 'Data analytics', icon: BarChart3, outcome: '1M simulated records, 10 SQL queries' },
   'Answer IQ': { group: 'LLM & RAG', kind: 'RAG search', icon: FileSearch },
@@ -162,7 +163,7 @@ const Projects = () => {
         icon={FolderGit2}
         label="Projects"
         title={<>Selected work, <span className="text-gradient">measured by outcomes.</span></>}
-        lead="Twelve projects across voice, retrieval, analytics and healthcare ML. Each one shows the problem, the build, and a measured result where I have one."
+        lead="Thirteen projects across voice, retrieval, analytics and healthcare ML. Each one shows the problem, the build, and a measured result where I have one."
       />
 
       {featured && (

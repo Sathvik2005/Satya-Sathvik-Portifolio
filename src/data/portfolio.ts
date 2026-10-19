@@ -17,7 +17,7 @@ export const profile = {
 
 export const stats = [
   { value: "8.45/10", label: "CGPA" },
-  { value: "12", label: "AI projects shipped" },
+  { value: "13", label: "AI projects shipped" },
   { value: "1M", label: "Records analyzed" },
   { value: "<800 ms", label: "Voice AI response latency" },
   { value: "60%", label: "Faster resume shortlisting" },
@@ -176,6 +176,18 @@ export const projects: Project[] = [
     tech: ["Python", "FastAPI", "WebRTC", "Faster-Whisper", "Silero VAD", "Ollama"],
     links: {
       github: "https://github.com/Sathvik2005/realtime-voice-ai-infrastructure-SniperThink",
+    },
+  },
+  {
+    title: "Trao Interview Prep Kit",
+    tagline: "Researches a company and a job posting, then builds an editable interview prep kit.",
+    description: [
+      "Generic interview prep ignores what a specific company and role actually ask for.",
+      "Crawls the company site and public interview discussion, extracts quoted requirements from the posting, and builds a question bank, flashcards and a day-by-day schedule. Code checks every requirement has a question; edits and pins survive regeneration. Deployed on Vercel, Render and MongoDB Atlas.",
+    ],
+    tech: ["React", "TypeScript", "Node.js", "Express", "MongoDB", "Gemini", "Zod", "Vitest"],
+    links: {
+      github: "https://github.com/Sathvik2005/Trao--The-AI-Interview-Prep-Kit",
     },
   },
   {

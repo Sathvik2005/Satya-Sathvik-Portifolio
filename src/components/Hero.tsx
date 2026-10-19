@@ -23,7 +23,7 @@ const status = [
 const lines = [
   { cmd: 'whoami', out: 'kanithi-satya-sathvik · AI engineer' },
   { cmd: 'cat now.txt', out: 'SDE intern @ Logikality · test automation + AI workflows' },
-  { cmd: 'ls projects | wc -l', out: '12' },
+  { cmd: 'ls projects | wc -l', out: '13' },
   { cmd: 'echo $STACK', out: 'Python · FastAPI · RAG · React' },
 ];
 
