@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { ArrowUpRight, Check, Copy, FileText, Github, Linkedin, Mail, MapPin, Phone, Send } from 'lucide-react';
+import { ArrowUpRight, Check, Download, Copy, FileText, Github, Linkedin, Mail, MapPin, Phone, Send } from 'lucide-react';
 import { Reveal, Stagger, StaggerItem } from './Reveal';
 import { Section, SectionHeader } from './Section';
 import { links } from '../lib/links';
-import { profile } from '../data/portfolio';
+import { profile, resumes } from '../data/portfolio';
 
 const channels = [
   { icon: Mail, label: 'Email', value: profile.email, href: links.email },
@@ -71,6 +71,25 @@ const Contact = () => {
           );
         })}
       </Stagger>
+
+      <Reveal delay={0.1} className="mt-10">
+        <h3 className="font-display text-lg font-semibold">Resume by role</h3>
+        <p className="mt-1 text-sm text-muted">Same experience, framed for the role you’re hiring for.</p>
+        <ul className="mt-4 flex flex-wrap gap-2">
+          {resumes.map((r) => (
+            <li key={r.file}>
+              <a
+                href={`/resumes/${r.file}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm font-medium text-muted transition-colors hover:border-accent hover:text-ink"
+              >
+                <Download size={14} className="text-accent" aria-hidden="true" /> {r.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
 
       <Reveal delay={0.1} className="mt-8 flex flex-wrap gap-x-8 gap-y-2 text-sm text-muted">
         <a href={links.phone} className="inline-flex items-center gap-2 hover:text-ink transition-colors">

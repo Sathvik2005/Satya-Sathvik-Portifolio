@@ -371,3 +371,16 @@ export const aboutIntro = {
   title: "AI systems that ship, scale, and get used.",
   body: "Final-year AI and ML student focused on deployable products. I turn models into clean, useful tools for real workflows. Work includes RAG, text-to-SQL, live meeting copilots, hiring AI, healthcare ML, RL, and forecasting.",
 };
+
+// Role-tailored resumes served from /public/resumes.
+export const resumes = [
+  { label: "AI Engineer", file: "ai-engineer.pdf" },
+  { label: "AI / ML Engineer", file: "ai-ml-engineer.pdf" },
+  { label: "AI-native Frontend", file: "ai-native-frontend.pdf" },
+  { label: "Full-stack Developer", file: "full-stack-developer.pdf" },
+  { label: "Backend Engineer", file: "backend-engineer.pdf" },
+  { label: "Software Engineer (SDE)", file: "sde.pdf" },
+  { label: "Product Engineering", file: "product-engineering.pdf" },
+  { label: "Data Science & Engineering", file: "data-science-engineering.pdf" },
+  { label: "General (base)", file: "base.pdf" },
+];
